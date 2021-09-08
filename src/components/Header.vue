@@ -1,12 +1,23 @@
 <template>
   <header>
-    <h1>Task Tracker</h1>
+    <h1>{{ title }}</h1>
+    <Button text="Add Task" color="green" />
+    <Button text="Update Task" color="blue" />
+    <Button text="Delete Task" color="red" />
   </header>
 </template>
 
 <script>
+import Button from './Button.vue'
+
 export default {
   name: 'Header', //Export name should be the same was the file name
+  props: {
+    title: String, //The props will be placed in the template as string interpolation
+  },
+  components: {
+    Button,
+  }
 }
 </script>
 

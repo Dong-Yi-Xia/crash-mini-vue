@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Header />  <!--3.Embed the component -->
+    <Header title="Task Tracker" />  <!--3.Embed the component, pass in the props -->
   </div>
 </template>
 
