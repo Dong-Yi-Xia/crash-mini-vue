@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Header title="Task Tracker" />  <!--3.Embed the component, pass in the props -->
-    <Tasks :tasks="tasks"/> <!--v-bind an object/array -->
+    <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks"/> <!--v-bind an object/array -->
   </div>
 </template>
 
@@ -18,6 +18,16 @@ export default {
   data() {
     return {
       tasks: []
+    }
+  },
+  methods: {
+    deleteTask(id){
+      if(confirm('Are you sure?')){
+        this.tasks = this.tasks.filter((task) => task.id != id)
+      }
+    },
+    toggleReminder(id){
+      this.tasks = this.tasks.map((task) => task.id === id ? {...task, reminder: !task.reminder} : task)
     }
   },
   created() {

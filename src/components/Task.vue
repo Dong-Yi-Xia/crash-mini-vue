@@ -1,8 +1,9 @@
 <template>
   <!-- v-bind:class have a reminder if true, second argu is the class name  -->
-  <div :class="[task.reminder ? 'reminder' : '', 'task']">
+  <!-- can pass $emit as a method or pass it inline -->
+  <div @click="$emit('toggle-reminder', task.id)" :class="[task.reminder ? 'reminder' : '', 'task']">
     <h3>{{task.text}}
-      <i class="fas fa-times"></i>
+      <i @click="onDelete(task.id)" class="fas fa-times"></i>
     </h3>
     <p>{{task.day}}</p>
   </div>
@@ -14,6 +15,11 @@ export default {
   name: 'Task',
   props: {
     task: Object
+  },
+  methods: {
+    onDelete(id){
+      this.$emit('delete-task', id) //$emit is sending the data up the level
+    }
   },
 }
 </script>
