@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <Header title="Task Tracker" />  <!--3.Embed the component, pass in the props -->
+    <AddTask @add-task="addTask" />
     <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks"/> <!--v-bind an object/array -->
   </div>
 </template>
@@ -8,12 +9,14 @@
 <script>
 import Header from './components/Header.vue' //1.import the components
 import Tasks from './components/Tasks.vue'
+import AddTask from './components/AddTask.vue'
 
 export default {
   name: 'App',
   components: {
     Header, //2. Register the components
     Tasks,
+    AddTask,
   },
   data() {
     return {
@@ -21,6 +24,9 @@ export default {
     }
   },
   methods: {
+    addTask(task){ //the parameter of task is the newTask in the $emit that was passed up
+      this.tasks = [...this.tasks, task]
+    },
     deleteTask(id){
       if(confirm('Are you sure?')){
         this.tasks = this.tasks.filter((task) => task.id != id)
