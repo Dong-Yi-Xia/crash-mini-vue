@@ -1,5 +1,6 @@
 <template>
-  <button :style="{background: color}" class="btn"> {{text}} </button>
+  <!-- EventListner  v-on:click  the shorthand is @click -->
+  <button :style="{background: color}" class="btn" @click="onClickFun()"> {{text}} </button>
 </template>
 
 <script>
@@ -8,6 +9,11 @@ export default {
   props:{
     text: String,
     color: String
+  },
+  methods:{
+    onClickFun(){
+      console.log("clicked")
+    }
   },
 }
 </script>

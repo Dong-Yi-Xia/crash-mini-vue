@@ -1,17 +1,47 @@
 <template>
   <div class="container">
     <Header title="Task Tracker" />  <!--3.Embed the component, pass in the props -->
+    <Tasks :tasks="tasks"/> <!--v-bind an object/array -->
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue' //1.import the components
+import Tasks from './components/Tasks.vue'
 
 export default {
   name: 'App',
   components: {
     Header, //2. Register the components
-  }
+    Tasks,
+  },
+  data() {
+    return {
+      tasks: []
+    }
+  },
+  created() {
+    this.tasks = [
+      {
+        id: 1,
+        text: "Doc Appointment",
+        day: "March 1",
+        reminder: true,
+      },
+      {
+        id: 2,
+        text: "Food Delievery",
+        day: "March 23",
+        reminder: true,
+      },
+      {
+        id: 3,
+        text: "Makeup",
+        day: "June 21",
+        reminder: false,
+      },
+    ]
+  },
 }
 </script>
 
