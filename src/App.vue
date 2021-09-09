@@ -54,7 +54,7 @@ export default {
       const data = await resp.json()
       return data
     },
-    async fetchTask() {
+    async fetchTask(id) {
       const resp = await fetch(`api/tasks/${id}`)
       const data = await resp.json()
       return data
