@@ -1,7 +1,8 @@
 <template>
   <!-- v-bind:class have a reminder if true, second argu is the class name  -->
   <!-- can pass $emit as a method or pass it inline -->
-  <div @click="$emit('toggle-reminder', task.id)" :class="[task.reminder ? 'reminder' : '', 'task']">
+  <div @click="$emit('toggle-reminder', task.id)"
+    :class="[task.reminder ? 'reminder' : '', 'task']">
     <h3>{{task.text}}
       <i @click="onDelete(task.id)" class="fas fa-times"></i>
     </h3>

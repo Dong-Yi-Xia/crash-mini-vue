@@ -1,8 +1,18 @@
 <template>
   <div class="container">
-    <Header title="Task Tracker" />  <!--3.Embed the component, pass in the props -->
-    <AddTask @add-task="addTask" />
-    <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks"/> <!--v-bind an object/array -->
+    <Header
+      title="Task Tracker"
+      @toggle-add-task="toggleAddTask"
+      :showAddTask="showAddTask"
+    />  <!--3.Embed the component, pass in the props -->
+    <div v-show="showAddTask"> <!--v-if or v-show is a conditional statement -->
+      <AddTask @add-task="addTask" />
+    </div>
+    <Tasks
+      @toggle-reminder="toggleReminder"
+      @delete-task="deleteTask"
+      :tasks="tasks"
+    /> <!--v-bind an object/array the props tasks -->
   </div>
 </template>
 
@@ -18,12 +28,16 @@ export default {
     Tasks,
     AddTask,
   },
-  data() {
+  data() { // the state
     return {
-      tasks: []
+      tasks: [],
+      showAddTask: false,
     }
   },
   methods: {
+    toggleAddTask(){
+      this.showAddTask = !this.showAddTask
+    },
     addTask(task){ //the parameter of task is the newTask in the $emit that was passed up
       this.tasks = [...this.tasks, task]
     },
@@ -36,7 +50,7 @@ export default {
       this.tasks = this.tasks.map((task) => task.id === id ? {...task, reminder: !task.reminder} : task)
     }
   },
-  created() {
+  created() { //lifecycle method
     this.tasks = [
       {
         id: 1,

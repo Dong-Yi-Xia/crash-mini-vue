@@ -12,7 +12,7 @@ export default {
   },
   methods:{
     onClickFun(){
-      console.log("clicked")
+      this.$emit('btn-click') //emit the generic method name btn-click
     }
   },
 }
