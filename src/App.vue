@@ -50,10 +50,13 @@ export default {
       this.tasks = this.tasks.map((task) => task.id === id ? {...task, reminder: !task.reminder} : task)
     },
     async fetchTasks() {
-      const resp = await fetch('http://localhost:5000/tasks')
+      const resp = await fetch('api/tasks')
       const data = await resp.json()
-      console.log(resp)
-      console.log(data)
+      return data
+    },
+    async fetchTask() {
+      const resp = await fetch(`api/tasks/${id}`)
+      const data = await resp.json()
       return data
     },
   },
