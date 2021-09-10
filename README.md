@@ -45,9 +45,16 @@ Start JSON Server
 ```
 json-server --watch db.json
 ```
+
+### Vue Router
+```
+npm i vue-router@next
+```
+
+
 ### Notes
 Rather than writing out `json-server --watch db.json` create an alias \
-Create an alias name and add it to the scripts in package.json 
+Create an alias name and add it to the scripts in package.json
 ```
 "backend": "json-server --watch db.json --port 5000"
 ```
