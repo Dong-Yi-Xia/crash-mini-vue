@@ -1,8 +1,10 @@
 <template>
   <header>
     <h1>{{ title }}</h1>
+    <!-- only show the button on the homePage using v-show -->
     <!-- catch the generic btn with @btn-click and than emit same method name or different name  -->
     <Button
+      v-show="homePage"
       @btn-click="$emit('toggle-add-task')"
       :text="showAddTask ? 'Close' : 'Add Task'"
       :color="[showAddTask ? 'red' : 'green']"
@@ -21,6 +23,11 @@ export default {
   },
   components: {
     Button,
+  },
+  computed: {
+    homePage(){ //is it the homepage?
+      return this.$route.path === '/'
+    }
   },
 }
 </script>

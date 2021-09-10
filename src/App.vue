@@ -5,32 +5,26 @@
       @toggle-add-task="toggleAddTask"
       :showAddTask="showAddTask"
     />  <!--3.Embed the component, pass in the props -->
-    <div v-show="showAddTask"> <!--v-if or v-show is a conditional statement -->
-      <AddTask @add-task="addTask" />
-    </div>
-    <Tasks
-      @toggle-reminder="toggleReminder"
-      @delete-task="deleteTask"
-      :tasks="tasks"
-    /> <!--v-bind an object/array the props tasks -->
+
+    <!-- All the views pages goes here between the header and footer -->
+    <router-view :showAddTask="showAddTask"></router-view>
+
+    <Footer />
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue' //1.import the components
-import Tasks from './components/Tasks.vue'
-import AddTask from './components/AddTask.vue'
+import Footer from './components/Footer.vue'
 
 export default {
   name: 'App',
   components: {
     Header, //2. Register the components
-    Tasks,
-    AddTask,
+    Footer,
   },
   data() { // the state
     return {
-      tasks: [],
       showAddTask: false,
     }
   },
@@ -38,66 +32,6 @@ export default {
     toggleAddTask(){
       this.showAddTask = !this.showAddTask
     },
-
-    async addTask(task){ //the parameter of task is the newTask in the $emit that was passed up
-      const resp = await fetch('api/tasks', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify(task)
-      })
-
-      const data = await resp.json()
-      console.log(resp)
-      console.log(data)
-
-      this.tasks = [...this.tasks, data]
-    },
-
-    async deleteTask(id){ //DELETE
-      if(confirm('Are you sure?')){
-        const resp = await fetch(`api/tasks/${id}`, {
-          method: 'DELETE',
-        })
-
-        resp.status === 200 ?
-        (this.tasks = this.tasks.filter((task) => task.id != id)) :
-        alert('Error deleting task')
-      }
-    },
-
-    async toggleReminder(id){ //UPDATE
-      const taskToToggle = await this.fetchTask(id)
-      const updateTask = {...taskToToggle, reminder: !taskToToggle.reminder}
-
-      const resp = await fetch(`api/tasks/${id}`, {
-        method: "PATCH",
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify(updateTask)
-      })
-
-      const data = await resp.json()
-
-      this.tasks = this.tasks.map((task) => task.id === id ? data : task)
-    },
-
-    async fetchTasks() { //READ
-      const resp = await fetch('api/tasks')
-      const data = await resp.json()
-      return data
-    },
-
-    async fetchTask(id) {
-      const resp = await fetch(`api/tasks/${id}`)
-      const data = await resp.json()
-      return data
-    },
-  },
-  async created() { //lifecycle method
-    this.tasks = await this.fetchTasks()
   },
 }
 </script>
