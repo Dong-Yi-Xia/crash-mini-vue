@@ -10,18 +10,21 @@
     <router-view :showAddTask="showAddTask"></router-view>
 
     <Footer />
+    <Measure />
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue' //1.import the components
 import Footer from './components/Footer.vue'
+import Measure from './components/Measure.vue'
 
 export default {
   name: 'App',
   components: {
     Header, //2. Register the components
     Footer,
+    Measure,
   },
   data() { // the state
     return {
