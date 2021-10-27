@@ -10,6 +10,13 @@
     <!-- set = to another function to write out the logic in the methods.
     The payload will be the argument, changeLog(payload) -->
     <show-me-money  @display-money='changeLog'/>
+
+    <!-- : is passing prop down = method/prop  -->
+    <!-- @ is emit and grabbing that function name = method name to perform some actions (with payload) as arg-->
+    <search-icon
+      :is-showing-search-bar="isShowingSearchBar"
+      @is-showing-search-bar-update="isShowingSearchBarUpdate"
+    />
   </div>
 
 </template>
