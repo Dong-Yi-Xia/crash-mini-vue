@@ -37,6 +37,7 @@ export const MyComponent = Vue.extend({
   data() {
     return {
       sandwhich: "chicken",
+      isRich: false
     }
   },
 
@@ -50,12 +51,18 @@ export const MyComponent = Vue.extend({
       //the function that takes the payload, it will be the passed in arugments
      this.$emit('display-money', event.target)
     }
+  },
+
+  watch: {
+    isRich(newValue, oldValue){
+      console.log(newValue, oldValue)
+    }
   }
 
 })
 
 // nuxt-property-decorator
-import { Component, Emit, Prop, Provide, Vue } from 'nuxt-property-decorator'
+import { Component, Emit, Prop, Provide, Watch, Vue } from 'nuxt-property-decorator'
 
 @Component({})
 export class MyComponent extends Vue {
@@ -66,10 +73,16 @@ export class MyComponent extends Vue {
   propB!: string
 
  //same as data(){}
- @Provide() sandwhich = "chicken"
+ sandwhich = "chicken"
+ isRich = false
 
  findColor(){
       console.log("color")
+ }
+
+ @Watch('isRich')
+ someFunctionName(newValue, oldValue){
+   console.log(newValue, oldValue)
  }
 
 @Emit()
