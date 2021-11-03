@@ -1,5 +1,7 @@
 
-
+// Prop names and event handler parameters
+// DOM HTML Template use kebab-cased, components, fileNames
+// camelCase in JavaScript
 
 
 <template>
@@ -17,6 +19,9 @@
       :is-showing-search-bar="isShowingSearchBar"
       @is-showing-search-bar-update="isShowingSearchBarUpdate"
     />
+
+    <!-- is="vue:someComponent" is dynamically render component, below is the same as <search-icon></search-icon> -->
+    <div is="vue:search-icon"></div>
   </div>
 
 </template>
@@ -49,7 +54,7 @@ export const MyComponent = Vue.extend({
     displayMoney(event){
       //Emit takes a function to pass up, second is the payload
       //the function that takes the payload, it will be the passed in arugments
-     this.$emit('display-money', event.target)
+     this.$emit('displayMoney', event.target)
     }
   },
 
