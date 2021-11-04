@@ -55,10 +55,139 @@ export default {
     return {
       count: 4
     }
-  }
+  },
+
+  // You should avoid using arrow functions when defining methods, as that prevents Vue from binding the appropriate this value.
+  methods: {
+    increment() {
+      // `this` will refer to the component instance
+      this.count++
+    }
+  },
+
+  // That's why for complex logic that includes reactive data, you should use a computed property.
+  // A computed property will only re-evaluate when some of its reactive dependencies have changed.
+  //  a method invocation will always run the function whenever a re-render happens.
+  computed: {
+    // a computed getter
+    publishedBooksMessage() {
+      // `this` points to the vm instance
+      return this.author.books.length > 0 ? 'Yes' : 'No'
+    }
+  },
+
+  // Watchers - This is most useful when you want to perform asynchronous or expensive operations in response to changing data.
+
+
+
 }
 </script>
 
-<style>
 
-</style>
+
+<script>
+// LifeCycle
+const app = Vue.createApp({})
+app.component('save-button', {
+  created() {
+    // Debouncing with Lodash
+    this.debouncedClick = _.debounce(this.click, 500)
+  },
+  unmounted() {
+    // Cancel the timer when the component is removed
+    this.debouncedClick.cancel()
+  },
+  methods: {
+    click() {
+      // ... respond to click ...
+    }
+  },
+  template: `
+    <button @click="debouncedClick">
+      Save
+    </button>
+  `
+})
+</script>
+
+
+
+
+<script>
+//Computed
+Vue.createApp({
+  data() {
+    return {
+      author: {
+        name: 'John Doe',
+        books: [
+          'Vue 2 - Advanced Guide',
+          'Vue 3 - Basic Guide',
+          'Vue 4 - The Mystery'
+        ]
+      }
+    }
+  },
+  computed: {
+    // a computed getter
+    publishedBooksMessage() {
+      // `this` points to the vm instance
+      return this.author.books.length > 0 ? 'Yes' : 'No'
+    }
+  },
+  template: `
+    <div id="computed-basics">
+      <span>{{ publishedBooksMessage }}</span>
+    </div>
+  `
+}).mount('#computed-basics')
+</script>
+
+
+
+
+
+<template>
+  <div id="watch-example">
+  <p>
+    Ask a yes/no question:
+    <input v-model="question" />
+  </p>
+  <p>{{ answer }}</p>
+</div>
+</template>
+
+<script>
+// Watch method
+  const watchExampleVM = Vue.createApp({
+    data() {
+      return {
+        question: '',
+        answer: 'Questions usually contain a question mark. ;-)'
+      }
+    },
+    watch: {
+      // whenever question changes, this function will run
+      question(newQuestion, oldQuestion) {
+        if (newQuestion.indexOf('?') > -1) {
+          this.getAnswer()
+        }
+      }
+    },
+    methods: {
+      getAnswer() {
+        //When there is a ? response answer with Think...
+        this.answer = 'Thinking...'
+        axios
+          .get('https://yesno.wtf/api')
+          .then(response => {
+            //After 2 sec, return an answer 
+            setTimeout(() => {this.answer = response.data.answer}, 2000)
+          })
+          .catch(error => {
+            this.answer = 'Error! Could not reach the API. ' + error
+          })
+      }
+    }
+  }).mount('#watch-example')
+</script>
