@@ -77,7 +77,13 @@ export default {
   },
 
   // Watchers - This is most useful when you want to perform asynchronous or expensive operations in response to changing data.
-
+  watch: {
+    // whenever question changes, this function will run
+    question(newQuestion, oldQuestion) {
+      if (newQuestion.indexOf('?') > -1) {
+        this.getAnswer()
+      }
+  }
 
 
 }
@@ -181,7 +187,7 @@ Vue.createApp({
         axios
           .get('https://yesno.wtf/api')
           .then(response => {
-            //After 2 sec, return an answer 
+            //After 2 sec, return an answer
             setTimeout(() => {this.answer = response.data.answer}, 2000)
           })
           .catch(error => {
