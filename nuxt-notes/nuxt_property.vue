@@ -22,6 +22,14 @@
 
     <!-- is="vue:someComponent" is dynamically render component, below is the same as <search-icon></search-icon> -->
     <div is="vue:search-icon"></div>
+
+    <!-- Add class in a object. Classname will be added if the value is TRUE -->
+    <button
+      type="button"
+      class="reset-button search-icon"
+      :class="{ 'search-trigger': isShowingSearchBar }"
+    />
+
   </div>
 
 </template>
