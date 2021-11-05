@@ -91,8 +91,8 @@ export default {
 
 
 
-<script>
 // LifeCycle
+<script>
 const app = Vue.createApp({})
 app.component('save-button', {
   created() {
@@ -119,8 +119,8 @@ app.component('save-button', {
 
 
 
-<script>
 //Computed
+<script>
 Vue.createApp({
   data() {
     return {
@@ -153,6 +153,7 @@ Vue.createApp({
 
 
 
+// Watch method
 <template>
   <div id="watch-example">
   <p>
@@ -162,9 +163,7 @@ Vue.createApp({
   <p>{{ answer }}</p>
 </div>
 </template>
-
 <script>
-// Watch method
   const watchExampleVM = Vue.createApp({
     data() {
       return {

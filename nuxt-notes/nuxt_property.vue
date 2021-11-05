@@ -1,6 +1,6 @@
 // Prop names and event handler parameters
-// DOM HTML Template use kebab-cased, components, fileNames
-// camelCase in JavaScript
+// DOM HTML Template use kebab-cased, components-name, file-names
+// camelCase in JavaScript, someProp, someMethod
 
 <template>
 
